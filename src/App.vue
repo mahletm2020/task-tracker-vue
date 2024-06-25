@@ -1,17 +1,18 @@
 <template>
-  <h1>hay</h1>
   <div class="container">
-
+     <Header/>
+     <Form/>
   </div>
 </template>
 
 <script>
+import Header from './components/Header.vue'
+import Form from './components/form.vue'
 export default {
-data() {
-  return {
-    
-  }
-},
+name: 'App',
+components: {
+  Header,Form,
+}
 }
 </script>
 
