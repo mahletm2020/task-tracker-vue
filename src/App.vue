@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-     <Header/>
+     <Header tittle="task tracker"/>
      <Form/>
   </div>
 </template>
@@ -11,7 +11,8 @@ import Form from './components/form.vue'
 export default {
 name: 'App',
 components: {
-  Header,Form,
+  Header,
+  Form,
 }
 }
 </script>

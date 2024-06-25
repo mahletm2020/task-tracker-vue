@@ -1,15 +1,26 @@
 <template>
   <div class="header">
-  <h1>task tracker</h1>
-  <button id="close">close</button>
-    
+  <h1>{{ tittle }}</h1>
+  <Button text="add task" color="#b1047b"/>
+  <Button text="update task" color="#b1047b"/>
+  <Button text="delet task" color="#b1047b"/>
+
   </div>
 
 </template>
 
 <script>
+import Button from './button.vue'
 export default {
-
+  name:'header',
+  components: {
+    Button,
+  },
+  props:{
+    tittle:{
+      type: String,
+    } ,
+  }
 }
 </script>
 
@@ -21,13 +32,5 @@ export default {
   align-items: center;
   gap: 70px;
 }
-#close {
-  background-color: #b1047b;
-  border-radius: 5px;
-  color: rgb(249, 244, 200);
-  border: none;
-  height: 25px;
-  width: 100px;
-  margin-top: 15px;
-}
+
 </style>
