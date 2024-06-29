@@ -2,7 +2,7 @@
   <div class="container">
      <div class="content">
       <Header tittle="task tracker"/>
-      <Tasks :tasks="tasks"/>
+      <Tasks @delet-task="delettask" :tasks="tasks"/>
      </div>
      
      <!-- <Form/> -->
@@ -25,6 +25,13 @@ data(){
     tasks: []
   }
 },
+methods:{
+  delettask(id){
+    if(confirm('Are you sure?')){
+      this.tasks = this.tasks.filter((task) => task.id !== id)
+    }
+  }
+},
 created(){
   this.tasks =[
     {
@@ -43,7 +50,7 @@ created(){
       id:3,
       text: 'task 3',
       day: 'wednesday',
-      reminder: true
+      reminder: false
     }
     
   ]
@@ -58,7 +65,6 @@ created(){
   height: 26rem;
   align-items: center;
   border-radius: 20px;
-  border: 1px solid rgb(239, 234, 234);
 }
 
 /* #content {
