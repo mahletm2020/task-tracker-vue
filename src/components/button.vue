@@ -19,7 +19,7 @@ methods:{
 
 <style>
 #close {
-  background-color: #b1047b;/*its not the color its taking its taking the one who s bind to i */
+  background-color: hsl(319, 96%, 35%);/*its not the color its taking its taking the one who s bind to i */
   border-radius: 5px;
   color: rgb(249, 244, 200);
   border: none;
