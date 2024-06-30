@@ -1,13 +1,13 @@
 <template>
   <div class="form">
     <label for="task">Task</label>
-    <input type="text" id="task">
+    <input type="text" id="task"  v-model="tasks" name="tasks">
     
     <label for="datetime">Date and Time</label>
-    <input type="text" id="datetime">
+    <input type="text" id="datetime" v-model="datetime" name="datetime">
     
     <label for="reminder">
-      <input type="checkbox" id="reminder"> Set Reminder 
+      <input type="checkbox" id="reminder" v-model="reminder" name="reminder"> Set Reminder 
     </label>
       <br>
     <button class="save-button">Save Task</button>  
@@ -16,7 +16,15 @@
 
 <script>
 export default {
-  name: 'FormComponent'
+  name: 'FormComponent',
+  data(){
+    return{
+      tasks: ' ',
+      datetime: ' ',
+      reminder: ' ',
+
+    }
+  }
 }
 </script>
 

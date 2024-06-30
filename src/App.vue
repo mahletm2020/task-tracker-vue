@@ -1,24 +1,27 @@
 <template>
   <div class="container">
-     <div class="content">
       <Header tittle="task tracker"/>
-      <Tasks @delet-task="delettask" :tasks="tasks"/>
+    <div class="form">
+     <Form/>
      </div>
-     
-     <!-- <Form/> -->
+     <div class="content">
+      <Tasks @toggle-reminder="toggleReminder"
+      @delet-task="delettask" :tasks="tasks"/>
+     </div>
+    
   </div>
 </template>
 
 <script>
 import Header from './components/Header.vue'
-// import Form from './components/form.vue'
 import Tasks from './components/Tasks.vue'
+import Form from './components/form.vue'
 export default {
 name: 'App',
 components: {
   Header,
   Tasks,
-  // Form,
+  Form,
 },
 data(){
   return{
@@ -30,6 +33,11 @@ methods:{
     if(confirm('Are you sure?')){
       this.tasks = this.tasks.filter((task) => task.id !== id)
     }
+  },
+  toggleReminder(id){
+    this.tasks = this.tasks.map((task) => 
+    task.id === id ? {...task, reminder: !task.reminder} : task
+    )
   }
 },
 created(){
@@ -61,8 +69,11 @@ created(){
 <style>
 .container {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
   height: 26rem;
+  gap: 20px;
   align-items: center;
   border-radius: 20px;
 }
