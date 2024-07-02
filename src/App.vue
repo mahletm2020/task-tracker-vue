@@ -1,69 +1,57 @@
 <template>
   <div class="container">
-      <Header tittle="task tracker"/>
+    <Header title="Task Tracker" />
     <div class="form">
-     <Form/>
-     </div>
-     <div class="content">
-      <Tasks @toggle-reminder="toggleReminder"
-      @delet-task="delettask" :tasks="tasks"/>
-     </div>
-    
+      <Form />
+    </div>
+    <div class="content">
+      <Tasks @toggle-reminder="toggleReminder" @delete-task="deleteTask" :tasks="tasks" />
+    </div>
   </div>
 </template>
 
 <script>
-import Header from './components/Header.vue'
-import Tasks from './components/Tasks.vue'
-import Form from './components/form.vue'
+import Header from './components/Header.vue';
+import Tasks from './components/Tasks.vue';
+//import Form from './components/form.vue';
+import { useQuery } from '@vue/apollo-composable'; // Import useQuery
+import { GET_TASKS } from './queries'; // Import your GraphQL query
+import { apolloClient } from './apollo'; // Import Apollo Client instance
+
 export default {
-name: 'App',
-components: {
-  Header,
-  Tasks,
-  Form,
-},
-data(){
-  return{
-    tasks: []
-  }
-},
-methods:{
-  delettask(id){
-    if(confirm('Are you sure?')){
-      this.tasks = this.tasks.filter((task) => task.id !== id)
-    }
+  name: 'App',
+  components: {
+    Header,
+    Tasks,
+    //Form,
   },
-  toggleReminder(id){
-    this.tasks = this.tasks.map((task) => 
-    task.id === id ? {...task, reminder: !task.reminder} : task
-    )
-  }
-},
-created(){
-  this.tasks =[
-    {
-      id:1,
-      text: 'task 1',
-      day: 'monday',
-      reminder: true
-    },
-    {
-      id:2,
-      text: 'task 2',
-      day: 'tuesday',
-      reminder: false
-    },
-    {
-      id:3,
-      text: 'task 3',
-      day: 'wednesday',
-      reminder: false
-    }
+  setup() {
     
-  ]
-}
-}
+    const { result, loading, error } = useQuery(GET_TASKS, {}, { client: apolloClient });
+
+    const tasks = result.value ? result.value.tasks : [];
+
+    function deleteTask(id) {
+      if (confirm('Are you sure?')) {
+        tasks.value = tasks.filter((task) => task.id !== id);
+      }
+    }
+
+    function toggleReminder(id) {
+      tasks.value = tasks.map((task) =>
+        task.id === id ? { ...task, reminder: !task.reminder } : task
+      );
+    }
+
+    return {
+      tasks,
+      loading,
+      error,
+      deleteTask,
+      toggleReminder,
+    };
+  },
+};
 </script>
 
 <style>
@@ -77,9 +65,4 @@ created(){
   align-items: center;
   border-radius: 20px;
 }
-
-/* #content {
-  margin-top: 20px;
-  justify-content: top;
-} */
 </style>
