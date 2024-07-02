@@ -1,5 +1,7 @@
-import { createApp } from 'vue'
-import './style.css'
-import App from './App.vue'
+import { createApp } from 'vue';
+import App from './App.vue';
+import { apolloProvider } from './apollo'; // Import the apolloProvider
 
-createApp(App).mount('#app')
+createApp(App)
+  .use(apolloProvider) // Use the Apollo provider
+  .mount('#app');
