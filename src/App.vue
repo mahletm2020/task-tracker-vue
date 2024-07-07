@@ -16,7 +16,8 @@ import Tasks from './components/Tasks.vue';
 //import Form from './components/form.vue';
 import { useQuery } from '@vue/apollo-composable'; // Import useQuery
 import { GET_TASKS } from './queries'; // Import your GraphQL query
-import { apolloClient } from './apollo'; // Import Apollo Client instance
+import { apolloClient, } from './apollo'; // Import Apollo Client instance
+import { createApolloProvider } from '@vue/apollo-composable';
 
 export default {
   name: 'App',
@@ -27,6 +28,8 @@ export default {
   },
   setup() {
     
+    const apolloProvider = createApolloProvider({ defaultClient: apolloClient });
+
     const { result, loading, error } = useQuery(GET_TASKS, {}, { client: apolloClient });
 
     const tasks = result.value ? result.value.tasks : [];
