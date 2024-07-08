@@ -1,5 +1,5 @@
 import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client/core';
-import { createApolloProvider } from '@vue/apollo-option';
+import { provideApolloClient } from '@vue/apollo-composable';
 
 const httpLink = createHttpLink({
   uri: 'http://localhost:8080/v1/graphql', // Replace with your GraphQL endpoint
@@ -10,6 +10,5 @@ export const apolloClient = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-export const apolloProvider = createApolloProvider({
-  defaultClient: apolloClient,
-});
+// Provide Apollo Client globally
+provideApolloClient(apolloClient);

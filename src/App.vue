@@ -10,51 +10,28 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import Header from './components/Header.vue';
 import Tasks from './components/Tasks.vue';
-//import Form from './components/form.vue';
+import Form from './components/form.vue';
 import { useQuery } from '@vue/apollo-composable'; // Import useQuery
 import { GET_TASKS } from './queries'; // Import your GraphQL query
-import { apolloClient, } from './apollo'; // Import Apollo Client instance
-import { createApolloProvider } from '@vue/apollo-composable';
 
-export default {
-  name: 'App',
-  components: {
-    Header,
-    Tasks,
-    //Form,
-  },
-  setup() {
-    
-    const apolloProvider = createApolloProvider({ defaultClient: apolloClient });
+const { result, loading, error } = useQuery(GET_TASKS);
 
-    const { result, loading, error } = useQuery(GET_TASKS, {}, { client: apolloClient });
+const tasks = result?.value?.tasks ?? [];
 
-    const tasks = result.value ? result.value.tasks : [];
+function deleteTask(id) {
+  if (confirm('Are you sure?')) {
+    tasks.value = tasks.filter((task) => task.id !== id);
+  }
+}
 
-    function deleteTask(id) {
-      if (confirm('Are you sure?')) {
-        tasks.value = tasks.filter((task) => task.id !== id);
-      }
-    }
-
-    function toggleReminder(id) {
-      tasks.value = tasks.map((task) =>
-        task.id === id ? { ...task, reminder: !task.reminder } : task
-      );
-    }
-
-    return {
-      tasks,
-      loading,
-      error,
-      deleteTask,
-      toggleReminder,
-    };
-  },
-};
+function toggleReminder(id) {
+  tasks.value = tasks.map((task) =>
+    task.id === id ? { ...task, reminder: !task.reminder } : task
+  );
+}
 </script>
 
 <style>
@@ -67,5 +44,6 @@ export default {
   gap: 20px;
   align-items: center;
   border-radius: 20px;
+  background-color: rgb(61, 62, 62);
 }
 </style>
