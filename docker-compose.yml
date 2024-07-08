@@ -16,7 +16,7 @@ services:
   hasura:
     image: hasura/graphql-engine:v2.0.10
     ports:
-      - "8080:8004"
+      - "8888:8004"
       
 
 
