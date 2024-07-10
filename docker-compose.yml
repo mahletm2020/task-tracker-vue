@@ -1,4 +1,4 @@
-version: '3.8'
+version: '3.9'
 
 services:
   postgres:
@@ -16,12 +16,7 @@ services:
   hasura:
     image: hasura/graphql-engine:v2.0.10
     ports:
-      - "8888:8004"
-      
-
-
-
-      
+      - "8888:8080"
     depends_on:
       - postgres
     environment:
@@ -31,3 +26,4 @@ services:
 
 volumes:
   postgres_data:
+u fixed the hasura part next create tables in pg iusing hasurra and connect them with vue :)
