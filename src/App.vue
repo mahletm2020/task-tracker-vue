@@ -1,19 +1,19 @@
 <template>
   <div class="container">
-    <Header title="Task Tracker" />
-    <div class="form">
-      <Form />
-    </div>
-    <div class="content">
-      <Tasks @toggle-reminder="toggleReminder" @delete-task="deleteTask" :tasks="tasks" />
-    </div>
+        <Header title="Task Tracker" />
+
+       <div class="form"> <Form/> </div>
+       <br><br>
+       <div class="content">
+          <Tasks @toggle-reminder="toggleReminder" @delete-task="deleteTask" :tasks="tasks" />
+       </div>
   </div>
 </template>
 
 <script setup>
 import Header from './components/Header.vue';
 import Tasks from './components/Tasks.vue';
-import Form from './components/form.vue';
+import Form from './components/Form.vue';
 import { useQuery } from '@vue/apollo-composable'; // Import useQuery
 import { GET_TASKS } from './queries'; // Import your GraphQL query
 
@@ -38,12 +38,12 @@ function toggleReminder(id) {
 .container {
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; */
   justify-content: center;
   height: 26rem;
   gap: 20px;
   align-items: center;
   border-radius: 20px;
-  background-color: rgb(61, 62, 62);
+  /* background-color: rgb(61, 62, 62); */
 }
 </style>
